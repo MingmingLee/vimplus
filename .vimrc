@@ -22,7 +22,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 通用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","      " 定义<leader>键
+let mapleader = " "      " 定义<leader>键
+let maplocalleader = "\\"      " 定义<localleader>键
+
 set nocompatible         " 设置不兼容原始vi模式
 filetype on              " 设置开启文件类型侦测
 filetype plugin on       " 设置加载对应文件类型的插件
@@ -48,10 +50,10 @@ set cindent              " 设置使用C/C++语言的自动缩进方式
 set cinoptions=g0,:0,N-s,(0    " 设置C/C++语言的具体缩进方式
 set smartindent          " 智能的选择对其方式
 filetype indent on       " 自适应不同语言的智能缩进
-set expandtab            " 将制表符扩展为空格
-set tabstop=4            " 设置编辑时制表符占用空格数
-set shiftwidth=4         " 设置格式化时制表符占用空格数
-set softtabstop=4        " 设置4个空格为制表符
+set noexpandtab            " 将制表符扩展为空格
+set tabstop=8            " 设置编辑时制表符占用空格数
+set shiftwidth=8         " 设置格式化时制表符占用空格数
+set softtabstop=8        " 设置4个空格为制表符
 set smarttab             " 在行和段开始处使用制表符
 set nowrap               " 禁止折行
 set backspace=2          " 使用回车键正常处理indent,eol,start等
@@ -129,14 +131,14 @@ Plug 'chxuan/change-colorscheme'
 Plug 'chxuan/prepare-code'
 Plug 'chxuan/vim-buffer'
 Plug 'chxuan/vimplus-startify'
-Plug 'preservim/tagbar'
+"Plug 'chxuan/tagbar'
 Plug 'Valloric/YouCompleteMe'
-Plug 'Yggdroot/LeaderF'
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'mileszs/ack.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'preservim/nerdtree'
+Plug 'scrooloose/nerdtree'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
@@ -172,9 +174,9 @@ call plug#end()
 runtime macros/matchit.vim
 
 " 编辑vimrc相关配置文件
-nnoremap <leader>e :edit $MYVIMRC<cr>
-nnoremap <leader>vc :edit ~/.vimrc.custom.config<cr>
-nnoremap <leader>vp :edit ~/.vimrc.custom.plugins<cr>
+nnoremap <leader>ee :edit ~/.vimrc<cr>
+nnoremap <leader>ec :edit ~/.vimrc.custom.config<cr>
+nnoremap <leader>ep :edit ~/.vimrc.custom.plugins<cr>
 
 " 查看vimplus的help文件
 nnoremap <leader>h :view +let\ &l:modifiable=0 ~/.vimplus/help.md<cr>
@@ -183,12 +185,12 @@ nnoremap <leader>h :view +let\ &l:modifiable=0 ~/.vimplus/help.md<cr>
 nnoremap <leader>H :execute ":help " . expand("<cword>")<cr>
 
 " 重新加载vimrc文件
-nnoremap <leader>s :source $MYVIMRC<cr>
+nnoremap <leader>es :source ~/.vimrc<cr>
 
 " 安装、更新、删除插件
 nnoremap <leader><leader>i :PlugInstall<cr>
 nnoremap <leader><leader>u :PlugUpdate<cr>
-nnoremap <leader><leader>c :PlugClean<cr>
+" nnoremap <leader><leader>c :PlugClean<cr>
 
 " 分屏窗口移动
 nnoremap <c-j> <c-w>j
@@ -217,10 +219,10 @@ let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
 
 " cpp-mode
 nnoremap <leader>y :CopyCode<cr>
@@ -254,11 +256,12 @@ nnoremap <silent> <leader>D :BufOnly<cr>
 " vim-edit
 nnoremap Y :CopyText<cr>
 nnoremap D :DeleteText<cr>
-nnoremap C :ChangeText<cr>
-nnoremap <leader>r :ReplaceTo<space>
-
+nnoremap C :ChangeText<cr>Unnoremap <leader>nr :ReplaceTo<space>
+nnoremap <leader><leader>r :ReplaceTo<space>
 " nerdtree
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
+nnoremap <silent> <leader>t :NERDTreeToggle<cr>
+nnoremap <silent> <leader>f :NERDTreeFind<cr>
+nnoremap <silent> <leader>v :Vista show<cr>
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
@@ -292,14 +295,14 @@ let g:ycm_semantic_triggers =  {
             \ }
 nnoremap <leader>u :YcmCompleter GoToDeclaration<cr>
 " 已经使用cpp-mode插件提供的转到函数实现的功能
-" nnoremap <leader>i :YcmCompleter GoToDefinition<cr> 
+nnoremap <leader>i :YcmCompleter GoToDefinition<cr>
 nnoremap <leader>o :YcmCompleter GoToInclude<cr>
-nnoremap <leader>ff :YcmCompleter FixIt<cr>
+nnoremap <leader><leader>f :YcmCompleter FixIt<cr>
 nmap <F5> :YcmDiags<cr>
 
 " tagbar
-let g:tagbar_width = 30
-nnoremap <silent> <leader>t :TagbarToggle<cr>
+"let g:tagbar_width = 30
+"nnoremap <silent> <leader><leader>t :TagbarToggle<cr>
 
 " incsearch.vim
 map /  <Plug>(incsearch-forward)
@@ -308,8 +311,6 @@ map g/ <Plug>(incsearch-stay)
 
 " vim-easymotion
 let g:EasyMotion_smartcase = 1
-map <leader>w <Plug>(easymotion-bd-w)
-nmap <leader>w <Plug>(easymotion-overwin-w)
 
 " nerdtree-git-plugin
 let g:NERDTreeGitStatusIndicatorMapCustom = {
@@ -326,7 +327,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
             \ }
 
 " LeaderF
-nnoremap <leader>f :LeaderfFile .<cr>
+"nnoremap <leader>f :LeaderfFile .<cr>
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','.vscode','.wine','.deepinwine','.oh-my-zsh'],
             \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
@@ -348,11 +349,6 @@ noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-
-" gv
-nnoremap <leader>g :GV<cr>
-nnoremap <leader>G :GV!<cr>
-nnoremap <leader>gg :GV?<cr>
 
 " 加载自定义配置
 if filereadable(expand($HOME . '/.vimrc.custom.config'))

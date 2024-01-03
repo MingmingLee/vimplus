@@ -10,9 +10,20 @@
 " 3.执行,,i进行插件安装
 " Plug 'iamcco/mathjax-support-for-mkdp'
 " (需要自己安装nodejs和yarn) Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-" Plug 'Yggdroot/indentLine'
-" Plug 'gorodinskiy/vim-coloresque'
-" Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'skywind3000/vim-preview'
+Plug 'liuchengxu/vim-which-key'
+Plug 'haya14busa/vim-easyoperator-line'
+Plug 'haya14busa/vim-easyoperator-phrase'
+Plug 'haya14busa/incsearch.vim'
+Plug 'vim-scripts/Mark'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'mileszs/ack.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+Plug 'liuchengxu/vista.vim'
+Plug 'szw/vim-maximizer'
 
-" 卸载/禁用~/.vimrc里的默认插件
-" UnPlug 'chxuan/prepare-code'
